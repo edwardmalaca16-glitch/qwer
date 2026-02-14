@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF text extractor · professional suite</title>
+    <!-- pdf.js stable -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <!-- Inter font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <!-- External CSS -->
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+
+<div class="app">
+    <!-- LEFT SECTOR: Upload & PDF preview -->
+    <div class="left-panel">
+        <div class="section-header">
+            <div class="icon">📎</div>
+            <h2>Document</h2>
+            <span class="pdf-badge" style="margin-left: 8px;">PDF</span>
+        </div>
+
+        <!-- Upload area -->
+        <div class="upload-zone" id="uploadZone">
+            <input type="file" id="pdfInput" accept=".pdf, application/pdf" />
+            <div class="upload-content">
+                <span class="upload-icon-large">📘</span>
+                <span class="upload-label">Browse or drop PDF</span>
+                <span class="upload-hint">Maximum size 50 MB · secured client-side</span>
+            </div>
+        </div>
+
+        <!-- Dynamic file info -->
+        <div id="fileMetaSection" style="min-height: 52px;"></div>
+
+        <!-- PDF preview card -->
+        <div class="preview-container">
+            <div class="preview-header">
+                <span>📐 First page preview</span>
+                <span class="metadata-badge" id="pageCountPreview">—</span>
+            </div>
+            <div id="pdfPreviewArea" class="preview-thumbnail">
+                <div class="empty-preview-message" id="previewEmptyMsg">
+                    <span style="opacity: 0.8;">⏺ No PDF loaded — upload to preview</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- RIGHT SECTOR: Text content display -->
+    <div class="right-panel">
+        <div class="right-header">
+            <div class="title-group">
+                <div class="icon">📋</div>
+                <h2>Content</h2>
+            </div>
+            <div id="pageCountBadge" class="page-pill">
+                ready
+            </div>
+        </div>
+
+        <!-- Extracted text container -->
+        <div id="textDisplayArea" class="text-content-panel">
+            <div class="placeholder-text">
+                <span>⬅ Upload a PDF to extract & display text</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- External JavaScript -->
+<!--script from static folder-->
+<script src="/static/js/main.js"></script>
+</body>
+</html>
