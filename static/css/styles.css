@@ -1,0 +1,621 @@
+/* modern reset – professional grade */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f0f3f7;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 24px;
+    color: #1a2c3e;
+    line-height: 1.5;
+}
+
+.app {
+    display: flex;
+    width: 1440px;
+    max-width: 100%;
+    height: 92vh;
+    background-color: white;
+    border-radius: 32px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    transition: box-shadow 0.2s ease;
+}
+
+/* LEFT PANEL – PDF UPLOAD & PREVIEW */
+.left-panel {
+    flex: 1 1 50%;
+    background-color: #ffffff;
+    border-right: 1px solid #e6edf2;
+    display: flex;
+    flex-direction: column;
+    padding: 32px 28px;
+    position: relative;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+    user-select: none;
+}
+
+.section-header .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: #0a2a44;
+    color: white;
+    border-radius: 14px;
+    font-size: 22px;
+    box-shadow: 0 6px 12px rgba(10, 42, 68, 0.08);
+}
+
+.section-header h2 {
+    font-size: 1.7rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: #0a2a44;
+}
+
+/* upload zone */
+.upload-zone {
+    background: #f9fcff;
+    border: 1.5px dashed #b8ccda;
+    border-radius: 24px;
+    padding: 36px 24px;
+    text-align: center;
+    transition: all 0.18s cubic-bezier(0.2, 0, 0, 1);
+    cursor: pointer;
+    margin-bottom: 28px;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.upload-zone:hover {
+    border-color: #0a2a44;
+    background: #f2f8ff;
+    border-width: 1.5px;
+}
+
+.upload-zone:active {
+    transform: scale(0.99);
+}
+
+.upload-zone input {
+    display: none;
+}
+
+.upload-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.upload-icon-large {
+    font-size: 48px;
+    line-height: 1;
+    color: #0a2a44;
+    opacity: 0.75;
+}
+
+.upload-label {
+    font-weight: 600;
+    font-size: 1.18rem;
+    color: #0a2a44;
+}
+
+.upload-hint {
+    font-size: 0.85rem;
+    color: #4f6f8a;
+    letter-spacing: 0.01em;
+}
+
+/* file metadata */
+.file-metadata {
+    display: flex;
+    align-items: center;
+    background: #f0f6fa;
+    border-radius: 100px;
+    padding: 10px 18px 10px 16px;
+    margin-bottom: 20px;
+    width: fit-content;
+    border: 0.5px solid #d9e2ea;
+    font-size: 0.95rem;
+    gap: 10px;
+    color: #1e3b5a;
+    flex-wrap: wrap;
+}
+
+/* preview panel */
+.preview-container {
+    background: #f6fafd;
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #b0c7d6 #eaf0f5;
+    border: 1px solid #e2ebf0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 16px;
+    color: #2e506a;
+    font-weight: 500;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.preview-thumbnail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.pdf-page-canvas {
+    max-width: 100%;
+    height: auto;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0,20,40,0.08);
+    border: 1px solid white;
+    background: white;
+}
+
+.empty-preview-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    background: white;
+    border-radius: 20px;
+    color: #58758b;
+    font-size: 0.95rem;
+    border: 1px solid #e3ecf2;
+    padding: 20px;
+    text-align: center;
+}
+
+/* RIGHT PANEL */
+.right-panel {
+    flex: 1 1 50%;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    padding: 32px 28px;
+    overflow: hidden;
+}
+
+.right-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.title-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.title-group .icon {
+    background: #f1f5f9;
+    border-radius: 12px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: #0a2a44;
+}
+
+.title-group h2 {
+    font-size: 1.7rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: #0a2a44;
+}
+
+.page-pill {
+    background: #e7edf3;
+    color: #1e3e5a;
+    padding: 8px 20px;
+    border-radius: 40px;
+    font-size: 0.9rem;
+    font-weight: 550;
+    border: 0.5px solid #d0dee8;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+}
+
+/* text output */
+.text-content-panel {
+    flex: 1;
+    background: #fafdff;
+    border-radius: 24px;
+    padding: 28px;
+    overflow-y: auto;
+    font-size: 0.98rem;
+    line-height: 1.7;
+    color: #1e3b4f;
+    border: 1px solid #e1ecf2;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.6), inset 0 2px 6px rgba(0,0,0,0.01);
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-family: 'Inter', 'SF Mono', 'Menlo', 'Consolas', monospace;
+    scroll-behavior: smooth;
+}
+
+.placeholder-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #67829b;
+    font-style: normal;
+    font-size: 1.05rem;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    background: #f4faff;
+    border-radius: 20px;
+    padding: 32px;
+    text-align: center;
+    border: 1px dashed #c7d9e5;
+}
+
+/* badges and utilities */
+.metadata-badge {
+    background: white;
+    border-radius: 30px;
+    padding: 4px 16px;
+    font-size: 0.8rem;
+    border: 0.5px solid #c6d6e1;
+    color: #1f4868;
+}
+
+.file-metadata span {
+    font-weight: 500;
+}
+
+.pdf-badge {
+    background: #0a2a44;
+    color: white;
+    border-radius: 18px;
+    padding: 4px 14px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.hidden {
+    display: none;
+}
+
+/* scrollbar refinement */
+.preview-container::-webkit-scrollbar,
+.text-content-panel::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.preview-container::-webkit-scrollbar-track,
+.text-content-panel::-webkit-scrollbar-track {
+    background: #eef4f8;
+    border-radius: 10px;
+}
+
+.preview-container::-webkit-scrollbar-thumb,
+.text-content-panel::-webkit-scrollbar-thumb {
+    background: #b8cfdd;
+    border-radius: 10px;
+}
+
+/* ============================================ */
+/* RESPONSIVE DESIGN - TABLET (768px - 1024px) */
+/* ============================================ */
+@media (max-width: 1024px) {
+    body {
+        padding: 16px;
+    }
+
+    .app {
+        border-radius: 24px;
+        height: auto;
+        min-height: 90vh;
+    }
+
+    .left-panel,
+    .right-panel {
+        padding: 24px 20px;
+    }
+
+    .section-header h2,
+    .title-group h2 {
+        font-size: 1.5rem;
+    }
+
+    .upload-zone {
+        padding: 28px 20px;
+    }
+}
+
+/* ============================================ */
+/* RESPONSIVE DESIGN - MOBILE (max 767px)      */
+/* ============================================ */
+@media (max-width: 767px) {
+    body {
+        padding: 12px;
+        align-items: flex-start;
+    }
+
+    .app {
+        flex-direction: column;
+        height: auto;
+        min-height: calc(100vh - 24px);
+        border-radius: 20px;
+        box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.2);
+    }
+
+    .left-panel {
+        border-right: none;
+        border-bottom: 1px solid #e6edf2;
+        padding: 20px 16px;
+        flex: 0 0 auto;
+    }
+
+    .right-panel {
+        padding: 20px 16px;
+        flex: 1;
+        min-height: 400px;
+    }
+
+    .section-header {
+        margin-bottom: 20px;
+        gap: 10px;
+    }
+
+    .section-header .icon,
+    .title-group .icon {
+        width: 38px;
+        height: 38px;
+        font-size: 20px;
+        border-radius: 12px;
+    }
+
+    .section-header h2,
+    .title-group h2 {
+        font-size: 1.35rem;
+    }
+
+    .pdf-badge {
+        font-size: 0.7rem;
+        padding: 3px 10px;
+    }
+
+    .upload-zone {
+        padding: 24px 16px;
+        border-radius: 18px;
+        margin-bottom: 20px;
+    }
+
+    .upload-icon-large {
+        font-size: 40px;
+    }
+
+    .upload-label {
+        font-size: 1.05rem;
+    }
+
+    .upload-hint {
+        font-size: 0.8rem;
+    }
+
+    .file-metadata {
+        font-size: 0.85rem;
+        padding: 8px 14px 8px 12px;
+        max-width: 100%;
+        gap: 8px;
+    }
+
+    .file-metadata span:first-of-type {
+        font-size: 1.2rem !important;
+    }
+
+    .preview-container {
+        padding: 16px;
+        border-radius: 16px;
+        max-height: 350px;
+    }
+
+    .preview-header {
+        font-size: 0.78rem;
+        margin-bottom: 12px;
+    }
+
+    .metadata-badge {
+        font-size: 0.75rem;
+        padding: 3px 12px;
+    }
+
+    .empty-preview-message {
+        min-height: 160px;
+        font-size: 0.88rem;
+        padding: 16px;
+    }
+
+    .right-header {
+        margin-bottom: 20px;
+    }
+
+    .page-pill {
+        padding: 6px 16px;
+        font-size: 0.85rem;
+    }
+
+    .text-content-panel {
+        padding: 20px 16px;
+        font-size: 0.9rem;
+        line-height: 1.65;
+        border-radius: 18px;
+    }
+
+    .placeholder-text {
+        font-size: 0.95rem;
+        padding: 24px 16px;
+        border-radius: 16px;
+    }
+
+    /* Optimize scrollbars for mobile */
+    .preview-container::-webkit-scrollbar,
+    .text-content-panel::-webkit-scrollbar {
+        width: 4px;
+    }
+}
+
+/* ============================================ */
+/* RESPONSIVE DESIGN - SMALL MOBILE (<400px)   */
+/* ============================================ */
+@media (max-width: 400px) {
+    body {
+        padding: 8px;
+    }
+
+    .app {
+        border-radius: 16px;
+    }
+
+    .left-panel,
+    .right-panel {
+        padding: 16px 12px;
+    }
+
+    .section-header h2,
+    .title-group h2 {
+        font-size: 1.2rem;
+    }
+
+    .section-header .icon,
+    .title-group .icon {
+        width: 36px;
+        height: 36px;
+        font-size: 18px;
+    }
+
+    .upload-zone {
+        padding: 20px 12px;
+    }
+
+    .upload-icon-large {
+        font-size: 36px;
+    }
+
+    .upload-label {
+        font-size: 0.95rem;
+    }
+
+    .upload-hint {
+        font-size: 0.75rem;
+    }
+
+    .file-metadata {
+        font-size: 0.8rem;
+    }
+
+    .preview-container {
+        padding: 12px;
+        max-height: 300px;
+    }
+
+    .text-content-panel {
+        padding: 16px 12px;
+        font-size: 0.85rem;
+    }
+
+    .placeholder-text {
+        font-size: 0.88rem;
+        padding: 20px 12px;
+    }
+}
+
+/* ============================================ */
+/* LANDSCAPE ORIENTATION ON MOBILE             */
+/* ============================================ */
+@media (max-width: 767px) and (orientation: landscape) {
+    .app {
+        flex-direction: row;
+        height: auto;
+        min-height: auto;
+    }
+
+    .left-panel {
+        border-right: 1px solid #e6edf2;
+        border-bottom: none;
+        flex: 0 0 45%;
+        max-height: calc(100vh - 24px);
+        overflow-y: auto;
+    }
+
+    .right-panel {
+        flex: 1;
+        max-height: calc(100vh - 24px);
+    }
+
+    .preview-container {
+        max-height: 300px;
+    }
+}
+
+/* ============================================ */
+/* PRINT STYLES                                 */
+/* ============================================ */
+@media print {
+    body {
+        background: white;
+        padding: 0;
+    }
+
+    .app {
+        box-shadow: none;
+        border-radius: 0;
+        height: auto;
+    }
+
+    .left-panel {
+        display: none;
+    }
+
+    .right-panel {
+        border: none;
+        padding: 20px;
+    }
+
+    .text-content-panel {
+        box-shadow: none;
+        border: 1px solid #ccc;
+    }
+}
