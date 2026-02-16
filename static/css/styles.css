@@ -135,14 +135,18 @@ body {
     align-items: center;
     background: #f0f6fa;
     border-radius: 100px;
-    padding: 10px 18px 10px 16px;
-    margin-bottom: 20px;
+    padding: 8px 16px 8px 14px;
+    margin-bottom: 16px;
     width: fit-content;
+    max-width: 100%;
     border: 0.5px solid #d9e2ea;
-    font-size: 0.95rem;
-    gap: 10px;
+    font-size: 0.9rem;
+    gap: 8px;
     color: #1e3b5a;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* PDF Files List (vertical tabs in left panel) */
@@ -151,10 +155,13 @@ body {
     flex-direction: column;
     gap: 8px;
     margin-bottom: 20px;
-    max-height: 300px;
+    max-height: 180px;
+    min-height: 80px;
     overflow-y: auto;
+    overflow-x: hidden;
     scrollbar-width: thin;
     scrollbar-color: #b0c7d6 #eaf0f5;
+    padding-right: 4px;
 }
 
 .pdf-files-list.hidden {
@@ -164,11 +171,11 @@ body {
 .pdf-file-item {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 12px 16px;
+    gap: 10px;
+    padding: 8px 12px;
     background: #f5f8fb;
     border: 1px solid #dce5ed;
-    border-radius: 12px;
+    border-radius: 10px;
     cursor: pointer;
     transition: all 0.2s ease;
     user-select: none;
@@ -184,12 +191,12 @@ body {
     background: #d6e8f5;
     border-color: #0a2a44;
     border-width: 2px;
-    padding: 11px 15px; /* Adjust for thicker border */
+    padding: 7px 11px; /* Adjust for thicker border */
     box-shadow: 0 2px 8px rgba(10, 42, 68, 0.1);
 }
 
 .pdf-file-icon {
-    font-size: 20px;
+    font-size: 18px;
     flex-shrink: 0;
 }
 
@@ -198,12 +205,12 @@ body {
     min-width: 0;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 2px;
 }
 
 .pdf-file-name {
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: #0a2a44;
     white-space: nowrap;
     overflow: hidden;
@@ -211,7 +218,7 @@ body {
 }
 
 .pdf-file-size {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     color: #6b7f93;
 }
 
@@ -219,12 +226,12 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     background: transparent;
     color: #6b7f93;
-    font-size: 18px;
+    font-size: 16px;
     flex-shrink: 0;
     transition: all 0.15s ease;
     cursor: pointer;
@@ -256,7 +263,8 @@ body {
     padding: 20px;
     display: flex;
     flex-direction: column;
-    flex: 1;
+    flex: 1 1 auto;
+    min-height: 400px;
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: #b0c7d6 #eaf0f5;
@@ -501,6 +509,83 @@ body {
     color: #1f4868;
 }
 
+/* ============================================ */
+/* PDF CONTENT TABS (RIGHT PANEL)              */
+/* ============================================ */
+.pdf-content-tabs {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #e6edf2;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #b0c7d6 #f0f6fa;
+}
+
+.pdf-content-tabs.hidden {
+    display: none;
+}
+
+.pdf-content-tab {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: #f5f8fb;
+    border: 1px solid #dce5ed;
+    border-bottom: none;
+    border-radius: 12px 12px 0 0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+    color: #4a6278;
+    white-space: nowrap;
+    user-select: none;
+    position: relative;
+    margin-bottom: -2px;
+}
+
+.pdf-content-tab:hover {
+    background: #e8f0f7;
+    color: #0a2a44;
+}
+
+.pdf-content-tab.active {
+    background: white;
+    color: #0a2a44;
+    font-weight: 600;
+    border-color: #c5d4e0;
+    border-bottom: 2px solid white;
+    z-index: 1;
+}
+
+.pdf-content-tab-icon {
+    font-size: 16px;
+}
+
+.pdf-content-tab-name {
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pdf-content-tabs::-webkit-scrollbar {
+    height: 6px;
+}
+
+.pdf-content-tabs::-webkit-scrollbar-track {
+    background: #eef4f8;
+    border-radius: 10px;
+}
+
+.pdf-content-tabs::-webkit-scrollbar-thumb {
+    background: #b8cfdd;
+    border-radius: 10px;
+}
+
+/* Original badges below */
+
 .file-metadata span {
     font-weight: 500;
 }
@@ -651,16 +736,61 @@ body {
         padding: 8px 14px 8px 12px;
         max-width: 100%;
         gap: 8px;
-        margin-bottom: 0;
+        margin-bottom: 12px;
     }
 
     .file-metadata span:first-of-type {
         font-size: 1.2rem !important;
     }
+    
+    /* Mobile file list - compact and scrollable */
+    .pdf-files-list {
+        max-height: 150px;
+        min-height: 60px;
+        gap: 6px;
+        margin-bottom: 16px;
+    }
+    
+    .pdf-file-item {
+        padding: 6px 10px;
+        gap: 8px;
+        border-radius: 8px;
+    }
+    
+    .pdf-file-item.active {
+        padding: 5px 9px;
+    }
+    
+    .pdf-file-icon {
+        font-size: 16px;
+    }
+    
+    .pdf-file-name {
+        font-size: 0.8rem;
+    }
+    
+    .pdf-file-size {
+        font-size: 0.65rem;
+    }
+    
+    .pdf-file-remove {
+        width: 18px;
+        height: 18px;
+        font-size: 14px;
+    }
 
-    /* Preview container styling for mobile - HIDE IT */
+    /* Preview container for mobile */
     .preview-container {
-        display: none;
+        padding: 12px;
+        min-height: 250px;
+        margin-bottom: 16px;
+    }
+
+    /* Preview container styling for mobile - SHOW IT with compact layout */
+    .preview-container {
+        padding: 16px;
+        margin-top: 16px;
+        min-height: 300px;
     }
 
     .preview-header {
@@ -681,6 +811,33 @@ body {
 
     .right-header {
         margin-bottom: 16px;
+    }
+    
+    /* Show content tabs on mobile with mobile-optimized styling */
+    .pdf-content-tabs {
+        display: flex !important;
+        gap: 4px;
+        padding-bottom: 8px;
+        margin-bottom: 12px;
+        margin-left: -16px;
+        margin-right: -16px;
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+    
+    .pdf-content-tab {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+        border-radius: 10px 10px 0 0;
+        min-width: auto;
+    }
+    
+    .pdf-content-tab-name {
+        max-width: 100px;
+    }
+    
+    .pdf-content-tab-icon {
+        font-size: 14px;
     }
 
     .page-pill {
@@ -765,6 +922,21 @@ body {
         width: 36px;
         height: 36px;
         font-size: 18px;
+    }
+    
+    /* Extra compact tabs for small screens */
+    .pdf-content-tab {
+        padding: 6px 10px;
+        font-size: 0.75rem;
+        gap: 6px;
+    }
+    
+    .pdf-content-tab-name {
+        max-width: 70px;
+    }
+    
+    .pdf-content-tab-icon {
+        font-size: 12px;
     }
 
     .upload-zone {
