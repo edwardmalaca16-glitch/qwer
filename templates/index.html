@@ -24,32 +24,41 @@
 
         <!-- Upload area -->
         <div class="upload-zone" id="uploadZone">
-            <input type="file" id="pdfInput" accept=".pdf, application/pdf" />
+            <input type="file" id="pdfInput" accept=".pdf, application/pdf" multiple style="display: none;" />
             <div class="upload-content">
                 <span class="upload-icon-large">📘</span>
-                <span class="upload-label">Browse or drop PDF</span>
-                <span class="upload-hint">Maximum size 50 MB · secured client-side</span>
+                <span class="upload-label">Browse or drop PDFs</span>
+                <span class="upload-hint">Multiple files allowed · Max 50 MB each</span>
             </div>
         </div>
 
         <!-- Dynamic file info -->
         <div id="fileMetaSection" style="min-height: 52px;"></div>
 
-        <!-- PDF preview card -->
+        <!-- PDF preview card with view tabs -->
         <div class="preview-container">
             <div class="preview-header">
-                <span>📐 First page preview</span>
-                <span class="metadata-badge" id="pageCountPreview">—</span>
+                <div class="preview-tabs">
+                    <button class="tab-btn active" id="tabFirstPage">📄 First Page</button>
+                    <button class="tab-btn" id="tabAllPages">📚 All Pages</button>
+                </div>
+                <div style="display: flex; gap: 8px; align-items: center;">
+                    <span class="metadata-badge" id="pageCountPreview">—</span>
+                </div>
             </div>
             <div id="pdfPreviewArea" class="preview-thumbnail">
                 <div class="empty-preview-message" id="previewEmptyMsg">
                     <span style="opacity: 0.8;">⏺ No PDF loaded — upload to preview</span>
                 </div>
             </div>
+            <!-- All pages preview area (hidden by default) -->
+            <div id="allPagesPreviewArea" class="all-pages-preview" style="display: none;">
+                <!-- All pages will be rendered here -->
+            </div>
         </div>
     </div>
 
-    <!-- RIGHT SECTOR: Text content display -->
+    <!-- RIGHT SECTOR: Text content display with file tabs -->
     <div class="right-panel">
         <div class="right-header">
             <div class="title-group">
@@ -61,17 +70,25 @@
             </div>
         </div>
 
+        <!-- File tabs for multiple documents -->
+        <div class="file-tabs-container" id="fileTabsContainer" style="display: none;">
+            <div class="file-tabs-scroll">
+                <div class="file-tabs" id="fileTabs">
+                    <!-- File tabs will be dynamically added here -->
+                </div>
+            </div>
+        </div>
+
         <!-- Extracted text container -->
         <div id="textDisplayArea" class="text-content-panel">
             <div class="placeholder-text">
-                <span>⬅ Upload a PDF to extract & display text</span>
+                <span>⬅ Upload PDFs to extract & display text</span>
             </div>
         </div>
     </div>
 </div>
 
 <!-- External JavaScript -->
-<!--script from static folder-->
 <script src="/static/js/main.js"></script>
 </body>
 </html>

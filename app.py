@@ -1,10 +1,11 @@
 from flask import Flask, render_template, request, jsonify
+from flask_cors import CORS  # Add this
 import PyPDF2
 import re
 import os
 
 app = Flask(__name__)
-
+CORS(app)  # Add this
 
 def clean_text(text):
     """
@@ -122,7 +123,7 @@ def clean_pdf():
                 'error': 'No text could be extracted',
                 'suggestion': 'This PDF may be scanned or image-based'
             }), 400
-        print("Extracted Text: " + full_text)
+        
         return jsonify({
             'success': True,
             'text': full_text,
