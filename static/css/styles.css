@@ -774,12 +774,16 @@ body {
         padding: 8px 14px 8px 12px;
         max-width: 100%;
         gap: 8px;
+        margin-bottom: 0;
     }
 
+    .file-metadata span:first-of-type {
+        font-size: 1.2rem !important;
+    }
+
+    /* HIDE PREVIEW SECTION ON MOBILE */
     .preview-container {
-        padding: 16px;
-        border-radius: 16px;
-        max-height: 350px;
+        display: none;
     }
 
     .preview-header {
@@ -964,17 +968,9 @@ body {
         max-height: calc(100vh - 24px);
     }
 
+    /* Keep preview hidden in landscape mobile too */
     .preview-container {
         max-height: 300px;
-    }
-
-    /* Show compact tabs in landscape */
-    .mobile-file-tabs {
-        display: block;
-    }
-    
-    .mobile-file-nav {
-        display: none;
     }
 }
 
