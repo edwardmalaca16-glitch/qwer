@@ -18,6 +18,7 @@ const textDisplayArea = document.getElementById('textDisplayArea');
 const pageCountBadge = document.getElementById('pageCountBadge');
 const pageCountPreview = document.getElementById('pageCountPreview');
 const pdfFilesList = document.getElementById('pdfFilesList');
+const pdfContentTabs = document.getElementById('pdfContentTabs');
 
 // API endpoint
 const API_ENDPOINT = '/api/clean-pdf';
@@ -79,6 +80,8 @@ const resetToEmpty = () => {
     pageCountPreview.innerText = '—';
     pdfFilesList.classList.add('hidden');
     pdfFilesList.innerHTML = '';
+    pdfContentTabs.classList.add('hidden');
+    pdfContentTabs.innerHTML = '';
 };
 
 // ============================================
@@ -119,17 +122,51 @@ const createFileListItem = (pdfId, filename, filesize) => {
     return item;
 };
 
+// ============================================
+// CONTENT TABS MANAGEMENT (RIGHT PANEL)
+// ============================================
+
+// Create a content tab for a PDF
+const createContentTab = (pdfId, filename) => {
+    const tab = document.createElement('div');
+    tab.className = 'pdf-content-tab';
+    tab.dataset.pdfId = pdfId;
+    
+    tab.innerHTML = `
+        <span class="pdf-content-tab-icon">📄</span>
+        <span class="pdf-content-tab-name" title="${escapeHTML(filename)}">${escapeHTML(truncateFilename(filename, 20))}</span>
+    `;
+    
+    // Tab click - switch to this PDF content
+    tab.addEventListener('click', () => {
+        switchToFile(pdfId);
+    });
+    
+    pdfContentTabs.appendChild(tab);
+    pdfContentTabs.classList.remove('hidden');
+    
+    return tab;
+};
+
 // Switch to a different file
 const switchToFile = (pdfId) => {
     if (!activePDFs.has(pdfId)) return;
     
     console.log('Switching to file:', pdfId);
     
-    // Update active file styling
+    // Update active file styling in left panel
     document.querySelectorAll('.pdf-file-item').forEach(item => {
         item.classList.remove('active');
         if (item.dataset.pdfId === pdfId) {
             item.classList.add('active');
+        }
+    });
+    
+    // Update active tab styling in right panel
+    document.querySelectorAll('.pdf-content-tab').forEach(tab => {
+        tab.classList.remove('active');
+        if (tab.dataset.pdfId === pdfId) {
+            tab.classList.add('active');
         }
     });
     
@@ -149,10 +186,16 @@ const removeFile = (pdfId) => {
     // Remove from map
     activePDFs.delete(pdfId);
     
-    // Remove list item element
+    // Remove list item element (left panel)
     const item = document.querySelector(`.pdf-file-item[data-pdf-id="${pdfId}"]`);
     if (item) {
         item.remove();
+    }
+    
+    // Remove content tab (right panel)
+    const contentTab = document.querySelector(`.pdf-content-tab[data-pdf-id="${pdfId}"]`);
+    if (contentTab) {
+        contentTab.remove();
     }
     
     // If this was the active file, switch to another or reset
@@ -167,9 +210,10 @@ const removeFile = (pdfId) => {
         }
     }
     
-    // Hide files list if no PDFs
+    // Hide lists/tabs if no PDFs
     if (activePDFs.size === 0) {
         pdfFilesList.classList.add('hidden');
+        pdfContentTabs.classList.add('hidden');
     }
 };
 
@@ -350,8 +394,11 @@ const processPdf = async (file) => {
     // Add to activePDFs
     activePDFs.set(pdfId, pdfData);
     
-    // Create file list item
+    // Create file list item (left panel)
     const item = createFileListItem(pdfId, file.name, file.size);
+    
+    // Create content tab (right panel)
+    const contentTab = createContentTab(pdfId, file.name);
     
     // Switch to this file
     switchToFile(pdfId);
@@ -523,7 +570,8 @@ window.addEventListener('load', () => {
         fileMetaSection: !!fileMetaSection,
         pdfPreviewArea: !!pdfPreviewArea,
         textDisplayArea: !!textDisplayArea,
-        pdfFilesList: !!pdfFilesList
+        pdfFilesList: !!pdfFilesList,
+        pdfContentTabs: !!pdfContentTabs
     });
     
     resetToEmpty();

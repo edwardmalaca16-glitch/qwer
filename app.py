@@ -4,9 +4,6 @@ import PyPDF2
 import re
 
 
-app = Flask(__name__)
-
-
 def clean_text(text):
     """
     Professional text cleaning pipeline for PDF extraction
